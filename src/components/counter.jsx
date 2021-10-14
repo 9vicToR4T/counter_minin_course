@@ -1,56 +1,39 @@
-import React, { useState } from "react";
+import React  from "react";
 
-const Counter = () => {
-  const arrayOfListItems = ["q", "w", "u"];
-
-  const [count, setCount] = useState(0);
-
+const Counter = ({value, id, name, onDecrement, onIncrement, onDelete}) => {
   let setClassNameIncrement = " m-3 btn btn";
-  count > 0
+  value > 0
     ? (setClassNameIncrement += "-primary")
     : (setClassNameIncrement += "-danger");
 
   let setClasNameDecrement = "m-3 btn btn";
-  count <= 0
+  value <= 0
     ? (setClasNameDecrement += " disabled")
     : (setClasNameDecrement += "-warning");
 
-  const createItemsList = (arr) => {
-    return (
-      <ul>
-        {arr.map((el, index) => (
-          <li key={index}>{el}</li>
-        ))}
-      </ul>
-    );
-  };
-
   const formCount = () => {
-    return count === 0 ? "Zero" : count;
-  };
-
-  const handleIncrement = (tagId, flag = true) => {
-    console.log(tagId);
-    return flag ? setCount(count + 1) : setCount(count - 1);
+    return value === 0 ? "Zero" : value;
   };
 
   return (
-    <>
-      {arrayOfListItems && createItemsList(arrayOfListItems)}
+    <div>
+      <h3>{name}</h3>
       <span className="m-3">{formCount()} </span>
       <button
-        onClick={() => handleIncrement({ id: 1 }, true)}
+        onClick={() => onIncrement(id)}
         className={setClassNameIncrement}
       >
         Increment
       </button>
+
       <button
-        onClick={() => handleIncrement({ id: 1 }, false)}
+        onClick={() => onDecrement(id)}
         className={setClasNameDecrement}
       >
         Decrement
       </button>
-    </>
+      <button className='btn btn-danger' onClick={() =>onDelete(id)}>Delete</button>
+    </div>
   );
 };
 
